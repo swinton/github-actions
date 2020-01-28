@@ -46,6 +46,7 @@ async function run() {
 
     const emailLen = serviceAccountEmail ? serviceAccountEmail.length : 0;
     const keyLen = serviceAccountKey ? serviceAccountKey.length : 0;
+
     console.log(`\nTEST!!emailLen: ${emailLen} keyLen: ${keyLen}\n`);
 
     // if a service account key isn't provided, log an un-authenticated notice
