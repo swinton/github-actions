@@ -22,6 +22,8 @@ import * as core from '@actions/core';
 import * as os from 'os';
 import path from 'path';
 
+import * as exec from '@actions/exec';
+
 export const GCLOUD_METRICS_ENV_VAR = 'CLOUDSDK_METRICS_ENVIRONMENT';
 export const GCLOUD_METRICS_LABEL = 'github-actions-setup-gcloud';
 
@@ -40,6 +42,11 @@ export async function installGcloudSDK(
   let toolPath = await toolCache.cacheDir(toolRoot, 'gcloud', version);
   console.log(`\nDEBUG!! toolPath: ${toolPath}\n`);
   console.log(`\nDEBUG!! toolRoot: ${toolRoot}\n`);
+
+  if (process.platform == 'win32') {
+    await exec.exec(`ls ${toolPath}`);
+    await exec.exec(`ls ${toolPath}\bin`);
+  }
 
   toolPath = path.join(toolPath, 'bin');
   core.addPath(toolPath);

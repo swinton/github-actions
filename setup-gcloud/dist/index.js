@@ -9415,6 +9415,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const toolCache = __importStar(__webpack_require__(533));
 const core = __importStar(__webpack_require__(470));
 const path_1 = __importDefault(__webpack_require__(622));
+const exec = __importStar(__webpack_require__(986));
 exports.GCLOUD_METRICS_ENV_VAR = 'CLOUDSDK_METRICS_ENVIRONMENT';
 exports.GCLOUD_METRICS_LABEL = 'github-actions-setup-gcloud';
 /**
@@ -9430,6 +9431,10 @@ function installGcloudSDK(version, gcloudExtPath) {
         let toolPath = yield toolCache.cacheDir(toolRoot, 'gcloud', version);
         console.log(`\nDEBUG!! toolPath: ${toolPath}\n`);
         console.log(`\nDEBUG!! toolRoot: ${toolRoot}\n`);
+        if (process.platform == 'win32') {
+            yield exec.exec(`ls ${toolPath}`);
+            yield exec.exec(`ls ${toolPath}\bin`);
+        }
         toolPath = path_1.default.join(toolPath, 'bin');
         core.addPath(toolPath);
         core.exportVariable(exports.GCLOUD_METRICS_ENV_VAR, exports.GCLOUD_METRICS_LABEL);
