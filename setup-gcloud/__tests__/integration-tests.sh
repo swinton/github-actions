@@ -25,5 +25,5 @@ gcloud projects list > /dev/null && echo "Passed."
 
 # Ensure gsutil was properly configured
 echo "Testing gsutil..."
-gsutil ls > /dev/null && echo "Passed."
+gsutil ls gs://cloud-sdk-release > /dev/null && echo "Passed."
 
