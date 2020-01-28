@@ -38,6 +38,9 @@ export async function installGcloudSDK(
 ): Promise<string> {
   const toolRoot = path.join(gcloudExtPath, 'google-cloud-sdk');
   let toolPath = await toolCache.cacheDir(toolRoot, 'gcloud', version);
+  console.log(`\nDEBUG!! toolPath: ${toolPath}\n`);
+  console.log(`\nDEBUG!! toolRoot: ${toolRoot}\n`);
+
   toolPath = path.join(toolPath, 'bin');
   core.addPath(toolPath);
   core.exportVariable(GCLOUD_METRICS_ENV_VAR, GCLOUD_METRICS_LABEL);

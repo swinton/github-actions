@@ -9428,6 +9428,8 @@ function installGcloudSDK(version, gcloudExtPath) {
     return __awaiter(this, void 0, void 0, function* () {
         const toolRoot = path_1.default.join(gcloudExtPath, 'google-cloud-sdk');
         let toolPath = yield toolCache.cacheDir(toolRoot, 'gcloud', version);
+        console.log(`\nDEBUG!! toolPath: ${toolPath}\n`);
+        console.log(`\nDEBUG!! toolRoot: ${toolRoot}\n`);
         toolPath = path_1.default.join(toolPath, 'bin');
         core.addPath(toolPath);
         core.exportVariable(exports.GCLOUD_METRICS_ENV_VAR, exports.GCLOUD_METRICS_LABEL);
