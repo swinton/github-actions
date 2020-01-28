@@ -9437,6 +9437,7 @@ function installGcloudSDK(version, gcloudExtPath) {
         }
         toolPath = path_1.default.join(toolPath, 'bin');
         core.addPath(toolPath);
+        console.log('\nDEBUG!! PATH: ' + process.env['PATH']);
         core.exportVariable(exports.GCLOUD_METRICS_ENV_VAR, exports.GCLOUD_METRICS_LABEL);
         return toolPath;
     });

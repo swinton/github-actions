@@ -50,6 +50,8 @@ export async function installGcloudSDK(
 
   toolPath = path.join(toolPath, 'bin');
   core.addPath(toolPath);
+
+  console.log('\nDEBUG!! PATH: ' + process.env['PATH']);
   core.exportVariable(GCLOUD_METRICS_ENV_VAR, GCLOUD_METRICS_LABEL);
   return toolPath;
 }
