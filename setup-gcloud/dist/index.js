@@ -9433,7 +9433,6 @@ function installGcloudSDK(version, gcloudExtPath) {
         core.addPath(toolPath);
         if (process.platform == 'win32') {
             yield exec.exec(`ls ${toolPath}`);
-            yield exec.exec(`ls ${toolPath}\\bin`);
             yield exec.exec(`Get-Command gcloud`);
         }
         console.log('\nDEBUG!! PATH: ' + process.env['PATH']);
