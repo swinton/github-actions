@@ -39,5 +39,6 @@ format_arch_path() {
 
 # Ensure gsutil was properly configured
 gsutil_cmd=$(which gsutil 2> /dev/null || "/usr/bin/pwsh $(win2lin $RUNNER_TOOL_CACHE)/gcloud/$GCLOUD_SDK_VERSION/$(format_arch_path)/bin/gsutil.ps1")
-echo "Testing gsutil... cmd:$gsutil_cmd"
+echo "Testing gsutil..."
+echo "cmd: $gsutil_cmd ls gs://cloud-sdk-release"
 $gsutil_cmd "ls gs://cloud-sdk-release" > /dev/null && echo "Passed."
