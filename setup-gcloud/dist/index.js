@@ -9429,6 +9429,7 @@ function installGcloudSDK(version, gcloudExtPath) {
     return __awaiter(this, void 0, void 0, function* () {
         const toolRoot = path_1.default.join(gcloudExtPath, 'google-cloud-sdk');
         let toolPath = yield toolCache.cacheDir(toolRoot, 'gcloud', version);
+        toolPath = path_1.default.join(toolPath, 'bin');
         core.addPath(toolPath);
         if (process.platform == 'win32') {
             yield exec.exec(`ls ${toolPath}`);
