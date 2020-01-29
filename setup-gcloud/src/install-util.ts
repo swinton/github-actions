@@ -48,7 +48,9 @@ export async function installGcloudSDK(
     await exec.exec(`ls ${toolPath}\\bin`);
   }
 
-  toolPath = path.join(toolPath, 'bin');
+  if (process.platform != 'win32') {
+    toolPath = path.join(toolPath, 'bin');
+  }
   core.addPath(toolPath);
 
   console.log('\nDEBUG!! PATH: ' + process.env['PATH']);

@@ -9435,7 +9435,9 @@ function installGcloudSDK(version, gcloudExtPath) {
             yield exec.exec(`ls ${toolPath}`);
             yield exec.exec(`ls ${toolPath}\\bin`);
         }
-        toolPath = path_1.default.join(toolPath, 'bin');
+        if (process.platform != 'win32') {
+            toolPath = path_1.default.join(toolPath, 'bin');
+        }
         core.addPath(toolPath);
         console.log('\nDEBUG!! PATH: ' + process.env['PATH']);
         core.exportVariable(exports.GCLOUD_METRICS_ENV_VAR, exports.GCLOUD_METRICS_LABEL);
