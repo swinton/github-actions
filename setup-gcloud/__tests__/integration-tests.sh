@@ -24,7 +24,9 @@ gcloud projects list > /dev/null && echo "Passed."
 
 env
 
+win2lin () { f="${1/C://c}"; printf '%s\n' "${f//\\//}"; }
+
 # Ensure gsutil was properly configured
-gsutil_cmd=$(which "gsutil" || "/usr/bin/pwsh $(wslpath $RUNNER_TOOL_CACHE)/gcloud/$GCLOUD_SDK_VERSION/*/bin/gsutil.ps1")
+gsutil_cmd=$(which "gsutil" || "/usr/bin/pwsh $(win2lin $RUNNER_TOOL_CACHE)/gcloud/$GCLOUD_SDK_VERSION/*/bin/gsutil.ps1")
 echo "Testing gsutil..."
 $gsutil_cmd ls gs://cloud-sdk-release > /dev/null && echo "Passed."
