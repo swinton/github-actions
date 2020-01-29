@@ -23,7 +23,7 @@ echo "Testing authentication..."
 gcloud projects list > /dev/null && echo "Passed."
 
 # Ensure gsutil was properly configured
-gsutil_cmd=$(which gsutil || which gsutil.ps1)
+gsutil_cmd=$(which "gsutil" || which "gsutil.ps1")
 if [ "$gsutil_cmd" -e "gsutil.ps1" ]; then
     gsutil_cmd="/usr/bin/pwsh gsutil.ps1"
 fi
