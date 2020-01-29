@@ -8279,16 +8279,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const exec = __importStar(__webpack_require__(986));
 const toolCache = __importStar(__webpack_require__(533));
 const js_base64_1 = __webpack_require__(867);
 const fs_1 = __webpack_require__(747);
-const path_1 = __importDefault(__webpack_require__(622));
 const tmp = __importStar(__webpack_require__(150));
 const os = __importStar(__webpack_require__(87));
 const format_url_1 = __webpack_require__(8);
@@ -8326,7 +8322,8 @@ function run() {
             yield fs_1.promises.writeFile(tmpKeyFilePath, js_base64_1.Base64.decode(serviceAccountKey));
             let toolCommand = 'gcloud';
             if (process.platform == 'win32') {
-                toolCommand = path_1.default.join(toolPath, 'gcloud.cmd');
+                //toolCommand = path.join(toolPath, 'gcloud.cmd');
+                toolCommand = 'gcloud.cmd';
             }
             // authenticate as the specified service account
             yield exec.exec(`${toolCommand} auth activate-service-account ${serviceAccountEmail} --key-file=${tmpKeyFilePath}`);

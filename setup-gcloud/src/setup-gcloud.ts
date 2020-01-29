@@ -63,7 +63,8 @@ async function run() {
 
     let toolCommand = 'gcloud';
     if (process.platform == 'win32') {
-      toolCommand = path.join(toolPath, 'gcloud.cmd');
+      //toolCommand = path.join(toolPath, 'gcloud.cmd');
+      toolCommand = 'gcloud.cmd';
     }
 
     // authenticate as the specified service account
