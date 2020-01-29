@@ -1,4 +1,6 @@
 name: Integration Tests
+env:
+  GCLOUD_SDK_VERSION: ${{ '278.0.0' }}
 on: [push, pull_request]
 jobs:
   run:
@@ -9,14 +11,14 @@ jobs:
         operating-system: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '2.x'
+    # - uses: actions/setup-python@v1
+    #   with:
+    #     python-version: '2.x'
 
     - name: setup-gcloud local
       uses: ./setup-gcloud/
       with:
-        version: '278.0.0'
+        version: ${{ env.GCLOUD_SDK_VERSION }}
         service_account_email: ${{ secrets.SETUP_GCLOUD_IT_EMAIL }}
         service_account_key: ${{ secrets.SETUP_GCLOUD_IT_KEY }}
 

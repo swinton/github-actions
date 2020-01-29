@@ -25,9 +25,6 @@ gcloud projects list > /dev/null && echo "Passed."
 env
 
 # Ensure gsutil was properly configured
-gsutil_cmd=$(which "gsutil" || which "gsutil.ps1")
-if [ "$gsutil_cmd" -e "gsutil.ps1" ]; then
-    gsutil_cmd="/usr/bin/pwsh gsutil.ps1"
-fi
+gsutil_cmd=$(which "gsutil" || "/usr/bin/pwsh $(wslpath $RUNNER_TOOL_CACHE)/gcloud/$GCLOUD_SDK_VERSION/*/bin/gsutil.ps1"
 echo "Testing gsutil..."
 $gsutil_cmd ls gs://cloud-sdk-release > /dev/null && echo "Passed."
