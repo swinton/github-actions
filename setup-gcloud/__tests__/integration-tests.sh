@@ -26,7 +26,18 @@ env
 
 win2lin () { f="${1/C://c}"; printf '%s\n' "${f//\\//}"; }
 
+format_arch_path() {
+    if [$PROCESSOR_ARCHITECTURE -e "AMD64"];
+       printf 'x64'
+    elif [$PROCESSOR_ARCHITECTURE -e "X86"];
+       printf 'x86'     
+    else
+        echo 'Unsupported architecture!'
+        exit 1
+    fi
+}
+
 # Ensure gsutil was properly configured
-gsutil_cmd=$(which "gsutil" || "/usr/bin/pwsh $(win2lin $RUNNER_TOOL_CACHE)/gcloud/$GCLOUD_SDK_VERSION/*/bin/gsutil.ps1")
+gsutil_cmd=$(which "gsutil" || "/usr/bin/pwsh $(win2lin $RUNNER_TOOL_CACHE)/gcloud/$GCLOUD_SDK_VERSION/$(format_arch_path)/bin/gsutil.ps1")
 echo "Testing gsutil..."
 $gsutil_cmd ls gs://cloud-sdk-release > /dev/null && echo "Passed."
