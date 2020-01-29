@@ -16,7 +16,7 @@
 # This file contains integration tests for the setup-gcloud action.
 
 # fail on error
-set -e
+#set -e
 
 # Ensure authentication was succesfully configured
 echo "Testing authentication..."
