@@ -16,18 +16,16 @@
 # This file contains integration tests for the setup-gcloud action.
 
 # fail on error
-#set -e
+set -e
 
 # Ensure authentication was succesfully configured
 echo "Testing authentication..."
 gcloud projects list > /dev/null && echo "Passed."
 
-which gsutil
-
-ls -la /c/hostedtoolcache/windows/gcloud/278.0.0/x64/bin/
-
-
 # Ensure gsutil was properly configured
+gsutil_cmd = $(which gsutil || which gsutil.ps1)
+if [ "$gsutil_cmd" -e "gsutil.ps1" ]; then
+    gsutil_cmd = "/usr/bin/pwsh gsutil.ps1"
+fi
 echo "Testing gsutil..."
-gsutil ls gs://cloud-sdk-release > /dev/null && echo "Passed."
-
+$gsutil_cmd ls gs://cloud-sdk-release > /dev/null && echo "Passed."
