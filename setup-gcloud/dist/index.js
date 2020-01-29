@@ -8279,12 +8279,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__webpack_require__(470));
 const exec = __importStar(__webpack_require__(986));
 const toolCache = __importStar(__webpack_require__(533));
 const js_base64_1 = __webpack_require__(867);
 const fs_1 = __webpack_require__(747);
+const path_1 = __importDefault(__webpack_require__(622));
 const tmp = __importStar(__webpack_require__(150));
 const os = __importStar(__webpack_require__(87));
 const format_url_1 = __webpack_require__(8);
@@ -8299,9 +8303,9 @@ function run() {
                 throw new Error('Missing required parameter: `version`');
             }
             // install the gcloud is not already present
-            const toolPath = toolCache.find('gcloud', version);
+            let toolPath = toolCache.find('gcloud', version);
             if (!toolPath) {
-                yield installGcloudSDK(version);
+                toolPath = yield installGcloudSDK(version);
             }
             const serviceAccountEmail = core.getInput('service_account_email') || '';
             const serviceAccountKey = core.getInput('service_account_key');
@@ -8320,8 +8324,12 @@ function run() {
                 });
             });
             yield fs_1.promises.writeFile(tmpKeyFilePath, js_base64_1.Base64.decode(serviceAccountKey));
+            let toolCommand = 'gcloud';
+            if (process.platform == 'win32') {
+                toolCommand = path_1.default.join(toolPath, 'gcloud');
+            }
             // authenticate as the specified service account
-            yield exec.exec(`gcloud auth activate-service-account ${serviceAccountEmail} --key-file=${tmpKeyFilePath}`);
+            yield exec.exec(`${toolCommand} auth activate-service-account ${serviceAccountEmail} --key-file=${tmpKeyFilePath}`);
         }
         catch (error) {
             core.setFailed(error.message);
@@ -8340,7 +8348,7 @@ function installGcloudSDK(version) {
             throw new Error(`Failed to download release, url: ${url}`);
         }
         // install the downloaded release into the github action env
-        yield installUtil.installGcloudSDK(version, extPath);
+        return yield installUtil.installGcloudSDK(version, extPath);
     });
 }
 run();
@@ -9415,7 +9423,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const toolCache = __importStar(__webpack_require__(533));
 const core = __importStar(__webpack_require__(470));
 const path_1 = __importDefault(__webpack_require__(622));
-const exec = __importStar(__webpack_require__(986));
 exports.GCLOUD_METRICS_ENV_VAR = 'CLOUDSDK_METRICS_ENVIRONMENT';
 exports.GCLOUD_METRICS_LABEL = 'github-actions-setup-gcloud';
 /**
@@ -9431,10 +9438,6 @@ function installGcloudSDK(version, gcloudExtPath) {
         let toolPath = yield toolCache.cacheDir(toolRoot, 'gcloud', version);
         toolPath = path_1.default.join(toolPath, 'bin');
         core.addPath(toolPath);
-        if (process.platform == 'win32') {
-            yield exec.exec('$Env:Path');
-        }
-        console.log('\nDEBUG!! PATH: ' + process.env['PATH']);
         core.exportVariable(exports.GCLOUD_METRICS_ENV_VAR, exports.GCLOUD_METRICS_LABEL);
         return toolPath;
     });

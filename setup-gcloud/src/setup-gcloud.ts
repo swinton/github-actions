@@ -75,7 +75,7 @@ async function run() {
   }
 }
 
-async function installGcloudSDK(version: string) {
+async function installGcloudSDK(version: string): Promise<string> {
   // retreive the release corresponding to the specified version and the current env
   const osPlat = os.platform();
   const osArch = os.arch();
@@ -88,7 +88,7 @@ async function installGcloudSDK(version: string) {
   }
 
   // install the downloaded release into the github action env
-  await installUtil.installGcloudSDK(version, extPath);
+  return await installUtil.installGcloudSDK(version, extPath);
 }
 
 run();
