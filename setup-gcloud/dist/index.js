@@ -8326,7 +8326,7 @@ function run() {
             yield fs_1.promises.writeFile(tmpKeyFilePath, js_base64_1.Base64.decode(serviceAccountKey));
             let toolCommand = 'gcloud';
             if (process.platform == 'win32') {
-                toolCommand = path_1.default.join(toolPath, 'gcloud');
+                toolCommand = path_1.default.join(toolPath, 'gcloud.cmd');
             }
             // authenticate as the specified service account
             yield exec.exec(`${toolCommand} auth activate-service-account ${serviceAccountEmail} --key-file=${tmpKeyFilePath}`);
