@@ -9,9 +9,9 @@ jobs:
         operating-system: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
-      with:
-        python-version: '2.x'
+    # - uses: actions/setup-python@v1
+    #   with:
+    #     python-version: '2.x'
 
     - name: setup-gcloud local
       uses: ./setup-gcloud/
