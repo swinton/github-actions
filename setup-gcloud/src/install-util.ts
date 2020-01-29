@@ -42,12 +42,6 @@ export async function installGcloudSDK(
   let toolPath = await toolCache.cacheDir(toolRoot, 'gcloud', version);
   toolPath = path.join(toolPath, 'bin');
   core.addPath(toolPath);
-
-  if (process.platform == 'win32') {
-    await exec.exec('$Env:Path');
-  }
-
-  console.log('\nDEBUG!! PATH: ' + process.env['PATH']);
   core.exportVariable(GCLOUD_METRICS_ENV_VAR, GCLOUD_METRICS_LABEL);
   return toolPath;
 }
