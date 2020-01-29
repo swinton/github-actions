@@ -22,11 +22,10 @@ set -e
 echo "Testing authentication..."
 gcloud projects list > /dev/null && echo "Passed."
 
-echo "$PATH:"
-echo $PATH
+which gsutil
 
-echo "type gsutil"
-type gsutil
+ls -la /c/hostedtoolcache/windows/gcloud/278.0.0/x64/bin/gsutil
+
 
 # Ensure gsutil was properly configured
 echo "Testing gsutil..."
