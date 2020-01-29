@@ -22,15 +22,15 @@ set -e
 echo "Testing authentication..."
 gcloud projects list > /dev/null && echo "Passed."
 
-env
+#env
 
 win2lin () { f="${1/C://c}"; printf '%s\n' "${f//\\//}"; }
 
 format_arch_path() {
-    if [$PROCESSOR_ARCHITECTURE -e "AMD64"];
-       printf 'x64'
-    elif [$PROCESSOR_ARCHITECTURE -e "X86"];
-       printf 'x86'     
+    if [$PROCESSOR_ARCHITECTURE -e "AMD64"]; then
+        printf 'x64'
+    elif [$PROCESSOR_ARCHITECTURE -e "X86"]; then
+        printf 'x86'
     else
         echo 'Unsupported architecture!'
         exit 1
