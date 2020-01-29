@@ -29,8 +29,8 @@ import * as downloadUtil from '../src/download-util';
 
 import {getReleaseURL} from '../src/format-url';
 // Downloads can require a bit longer of a timeout.
-const TEST_TIMEOUT_MILLIS = 20000;
-const CLEANUP_TIMEOUT_MILLIS = 10000;
+const TEST_TIMEOUT_MILLIS = 200000;
+const CLEANUP_TIMEOUT_MILLIS = 100000;
 
 describe('downloadAndExtractTool tests', () => {
   beforeAll(async () => {
