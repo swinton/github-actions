@@ -24,7 +24,7 @@ gcloud projects list > /dev/null && echo "Passed."
 
 which gsutil
 
-ls -la /c/hostedtoolcache/windows/gcloud/278.0.0/x64/bin/gsutil
+ls -la /c/hostedtoolcache/windows/gcloud/278.0.0/x64/bin/
 
 
 # Ensure gsutil was properly configured
