@@ -27,9 +27,9 @@ gcloud projects list > /dev/null && echo "Passed."
 win2lin () { f="${1/C://c}"; printf '%s\n' "${f//\\//}"; }
 
 format_arch_path() {
-    if [[$PROCESSOR_ARCHITECTURE -e 'AMD64']]; then
+    if ["$PROCESSOR_ARCHITECTURE" == 'AMD64']; then
         printf 'x64'
-    elif [[$PROCESSOR_ARCHITECTURE -e 'X86']]; then
+    elif ["$PROCESSOR_ARCHITECTURE" == 'X86']; then
         printf 'x86'
     else
         echo "Unsupported architecture: $PROCESSOR_ARCHITECTURE"
