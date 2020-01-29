@@ -9429,16 +9429,12 @@ function installGcloudSDK(version, gcloudExtPath) {
     return __awaiter(this, void 0, void 0, function* () {
         const toolRoot = path_1.default.join(gcloudExtPath, 'google-cloud-sdk');
         let toolPath = yield toolCache.cacheDir(toolRoot, 'gcloud', version);
-        console.log(`\nDEBUG!! toolPath: ${toolPath}\n`);
-        console.log(`\nDEBUG!! toolRoot: ${toolRoot}\n`);
+        core.addPath(toolPath);
         if (process.platform == 'win32') {
             yield exec.exec(`ls ${toolPath}`);
             yield exec.exec(`ls ${toolPath}\\bin`);
+            yield exec.exec(`Get-Command gcloud`);
         }
-        if (process.platform != 'win32') {
-            toolPath = path_1.default.join(toolPath, 'bin');
-        }
-        core.addPath(toolPath);
         console.log('\nDEBUG!! PATH: ' + process.env['PATH']);
         core.exportVariable(exports.GCLOUD_METRICS_ENV_VAR, exports.GCLOUD_METRICS_LABEL);
         return toolPath;
